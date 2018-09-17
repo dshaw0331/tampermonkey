@@ -6,7 +6,7 @@ function createElementFromHTML(htmlString) {
 
 var tabMap = {"loadrules":"loadrules","tags":"manage","extensions":"customizations"};
 
-function createButton(tab_name){
+function createSelectAllButton(tab_name){
     var parentRef, boxesRef, button, before = 0;
     button = createElementFromHTML('<div class="tab-menu-item select-all-button tmui"><a class="btn"><i class="icon-edit"></i><span>Select All</span></a></div>');
     switch (tab_name) {
@@ -46,19 +46,19 @@ function createButton(tab_name){
     (before) ? $(parentRef).before(button) : $(parentRef).prepend(button);
 }
 
-function insertButton(tab_name) {
+function insertSelectAllButton(tab_name) {
     if (tab_name === 'data sources'){
         if($('#defineContainer_headerControls').find('.select-all-button').length === 0){
-            createButton(tab_name)
+            createSelectAllButton(tab_name)
         }
     } else if ($('#tabs-' + tabMap[tab_name]).find('.select-all-button').length == 0) {
-        createButton(tab_name)
+        createSelectAllButton(tab_name)
     }
 }
 
 
 utui.util.pubsub.subscribe(utui.constants.views.TAB_CLICK, function(e) {
     if (e.screen_name) {
-        insertButton(e.screen_name.toLowerCase());
+        insertSelectAllButton(e.screen_name.toLowerCase());
     }
 });
